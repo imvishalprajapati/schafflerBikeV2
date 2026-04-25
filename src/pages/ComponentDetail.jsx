@@ -1,98 +1,138 @@
 import { useParams, useNavigate } from 'react-router-dom'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef } from 'react'
 import gsap from 'gsap'
+import {
+  Zap,
+  Car,
+  Fuel,
+  BarChart3,
+  Box,
+  ShieldCheck,
+  Settings2
+} from 'lucide-react'
 import { componentMap } from '../data/components.js'
 import ComponentViewer from '../components/ComponentViewer.jsx'
-import InfoPanel from '../components/InfoPanel.jsx'
-
-const catColor = {
-  'Engine': '#00893D',
-  'Engine Control Units': '#00b050',
-  'Transmission': '#0077cc',
-  'Chassis': '#cc7700',
-  'Electrification': '#9900cc',
-}
 
 export default function ComponentDetail() {
   const { id } = useParams()
   const navigate = useNavigate()
   const pageRef = useRef()
-  const [scrollProgress, setScrollProgress] = useState(0)
   const component = componentMap[id]
 
   useEffect(() => {
     if (!pageRef.current) return
     gsap.fromTo(pageRef.current,
-      { opacity: 0 },
-      { opacity: 1, duration: 0.5, ease: 'power2.out' }
+      { opacity: 0, y: 20 },
+      { opacity: 1, y: 0, duration: 0.6, ease: 'power3.out' }
     )
   }, [id])
-
-  // Scroll-based explode progress (on the info pane)
-  const handleScroll = (e) => {
-    const el = e.currentTarget
-    const progress = el.scrollTop / (el.scrollHeight - el.clientHeight)
-    setScrollProgress(Math.min(Math.max(progress, 0), 1))
-  }
 
   if (!component) {
     return (
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100vh', flexDirection: 'column', gap: '1rem' }}>
         <div style={{ fontSize: '3rem' }}>⚠</div>
         <div style={{ color: 'var(--text-secondary)' }}>Component not found</div>
-        <button className="back-button" style={{ position: 'static' }} onClick={() => navigate('/')}>← Back to Showroom</button>
+        <button className="back-button" style={{ position: 'static' }} onClick={() => navigate('/')}>← Back Gallery</button>
       </div>
     )
   }
 
-  const color = catColor[component.category] || '#00893D'
-
   return (
-    <div className="detail-page page-enter" ref={pageRef}>
-      {/* Back button */}
-      <button className="back-button" onClick={() => navigate('/')}>
-        <span className="back-arrow">←</span>
-        Back to Showroom
-      </button>
+    <div className="detail-page" ref={pageRef}>
+      {/* Top Section: Header + Viewer */}
+      <div className="detail-top-grid">
 
-      {/* Left: 3D Viewer */}
-      <div className="detail-viewer-pane">
-        <ComponentViewer
-          componentId={component.id}
-          modelFile={component.model}
-          color={color}
-          scrollProgress={component.hasExplodedView && component.explodeTrigger !== 'zoom' ? scrollProgress : 0}
-          explodeTrigger={component.explodeTrigger}
-        />
+        {/* Left Card: Information Header */}
+        <div className="detail-header-card">
+          <div className="header-text-group">
+            <h1>{component.label}</h1>
+            <p>{component.tagline}</p>
+          </div>
 
-        {/* Component label */}
-        <div className="viewer-label-overlay">
-          <div className="viewer-component-name">{component.id.replace(/_/g, ' ')}</div>
-          <div className="viewer-orbit-hint">Drag to rotate · {component.explodeTrigger === 'zoom' ? 'Zoom to explode' : 'Scroll to zoom'}</div>
-        </div>
-
-        {/* Scroll-driven explode progress bar (Only if supported by the component class) */}
-        {component.hasExplodedView && (
-          <div className="explode-progress">
-            <div className="explode-label">Explode</div>
-            <div className="explode-track">
-              <div className="explode-fill" style={{ height: `${scrollProgress * 100}%`, background: `linear-gradient(180deg, ${color}, ${color}88)` }} />
+          <div className="header-apps-group">
+            <div className="app-indicator">
+              <Zap className="app-icon" size={24} />
+              <span>Plug-in Hybrid<br />Electric Vehicle</span>
+            </div>
+            <div className="app-indicator">
+              <Car className="app-icon" size={24} />
+              <span>Mild Hybrid<br />Electric Vehicle</span>
+            </div>
+            <div className="app-indicator">
+              <Fuel className="app-icon" size={24} />
+              <span>Gasoline</span>
             </div>
           </div>
-        )}
+        </div>
 
-        {/* Scroll hint */}
-        {scrollProgress < 0.05 && component.hasExplodedView && (
-          <div className="scroll-hint">
-            <div className="scroll-hint-wheel" style={{ borderColor: color }} />
-            <div className="scroll-hint-text" style={{ color }}>{component.explodeTrigger === 'zoom' ? 'Zoom to explode' : 'Scroll to explode'}</div>
-          </div>
-        )}
+        {/* Right Box: 3D Viewer */}
+        <div className="detail-viewer-box">
+          <ComponentViewer
+            componentId={component.id}
+            modelFile={component.model}
+            scrollProgress={0}
+            explodeTrigger={component.explodeTrigger}
+          />
+          {/* <div className="viewer-watermark">GENERATE MOTION</div> */}
+        </div>
       </div>
 
-      {/* Right: Info Panel */}
-      <div className="detail-info-pane" onScroll={handleScroll} style={{ overflowY: 'auto' }}>
-        <InfoPanel component={component} scrollProgress={scrollProgress} />
+      {/* Bottom Section: Info Cards */}
+      <div className="detail-bottom-grid">
+
+        {/* Card 1: Highlights */}
+        <div className="info-card">
+          <div className="detail-card-header">
+            <BarChart3 size={18} className="card-header-icon" />
+            <h2>Highlights</h2>
+          </div>
+          <div className="card-body">
+            {component.highlights?.map((h, i) => (
+              <div key={i} className="highlight-item">
+                <div className="highlight-circle">
+                  {i === 0 ? <BarChart3 size={24} /> : i === 1 ? <Box size={24} /> : <Settings2 size={24} />}
+                </div>
+                <div className="highlight-text">{h}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Card 2: Advantages */}
+        <div className="info-card">
+          <div className="detail-card-header">
+            <ShieldCheck size={18} className="card-header-icon" />
+            <h2>Advantages</h2>
+          </div>
+          <div className="card-body">
+            <ul className="advantages-list">
+              {component.advantages?.map((a, i) => (
+                <li key={i}>{a}</li>
+              ))}
+            </ul>
+          </div>
+        </div>
+
+        {/* Card 3: Features */}
+        <div className="info-card">
+          <div className="detail-card-header">
+            <Settings2 size={18} className="card-header-icon" />
+            <h2>Features / Specs</h2>
+          </div>
+          <div className="card-body">
+            <table className="features-table">
+              <tbody>
+                {Object.entries(component.specs || {}).map(([key, val]) => (
+                  <tr key={key}>
+                    <td>{key}</td>
+                    <td>{val}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+
       </div>
     </div>
   )

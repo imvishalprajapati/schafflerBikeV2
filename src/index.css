@@ -772,47 +772,252 @@ h6 {
 }
 
 /* ── Component Detail Page ─────────────────────────────── */
+/* ── New Component Detail Layout ─────────────────────────── */
 .detail-page {
   position: fixed;
   inset: 0;
-  display: grid;
-  grid-template-columns: 55% 45%;
-  background: var(--bg-primary);
+  display: flex;
+  flex-direction: column;
+  background: #f8f9f9; /* Subtle off-white background */
   z-index: 200;
+  padding: 80px 2rem 2rem; /* space for navbar */
+  overflow-y: auto;
+  gap: 1.5rem;
 }
 
-.detail-viewer-pane {
+.detail-top-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 1.5rem;
+  min-height: 480px;
+  flex-shrink: 0;
+}
+
+/* Teal Header Card */
+.detail-header-card {
+  background: #d4dfda; /* Light teal color from image */
+  border-radius: var(--radius-sm);
+  padding: 3rem 2.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   position: relative;
-  background: radial-gradient(ellipse at 50% 60%, #fcfcfc 0%, var(--bg-primary) 100%);
+}
+
+.header-text-group h1 {
+  font-size: 2.4rem;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin-bottom: 1.5rem;
+  letter-spacing: -0.02em;
+}
+
+.header-text-group p {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #444;
+  max-width: 90%;
+}
+
+.header-apps-group {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.app-indicator {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+  color: #555;
+  font-size: 0.65rem;
+  font-weight: 600;
+  text-align: center;
+  width: 80px;
+}
+
+.app-icon {
+  width: 24px;
+  height: 24px;
+  stroke-width: 2.5px;
+  color: var(--schaeffler-green);
+}
+
+.app-indicator:nth-child(1) .app-icon { color: #f59e0b; } /* Gold/Plug */
+.app-indicator:nth-child(2) .app-icon { color: #10b981; } /* Green/Car */
+.app-indicator:nth-child(3) .app-icon { color: #ef4444; } /* Red/Gas */
+
+/* White Viewer Box */
+.detail-viewer-box {
+  background: white;
+  border-radius: var(--radius-sm);
+  position: relative;
   overflow: hidden;
+  border: 1px solid rgba(0,0,0,0.05);
 }
 
-.detail-viewer-pane::before {
-  content: '';
+.viewer-watermark {
   position: absolute;
-  inset: 0;
-  background: radial-gradient(circle at 50% 60%, rgba(0, 0, 0, 0.02) 0%, transparent 70%);
+  bottom: 1.5rem;
+  left: 2rem;
+  font-family: var(--font-heading);
+  font-size: 3rem;
+  font-weight: 700;
+  color: #d4dfda; /* Match teal header */
   pointer-events: none;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  opacity: 0.8;
 }
 
-/* grid lines decoration */
-.detail-viewer-pane::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background-image:
-    linear-gradient(rgba(0, 0, 0, 0.02) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0, 0, 0, 0.02) 1px, transparent 1px);
-  background-size: 40px 40px;
-  pointer-events: none;
+/* Bottom Grid of Cards */
+.detail-bottom-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1.2fr;
+  gap: 1.5rem;
+  height: auto;
+  margin-top: 1rem;
+  margin-bottom: 2rem;
 }
 
-.detail-info-pane {
-  background: var(--bg-secondary);
-  border-left: 1px solid var(--border);
+.info-card {
+  background: white;
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(0,0,0,0.08);
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+  height: 100%;
+}
+
+.detail-card-header {
+  padding: 1.1rem 1.5rem;
+  background: rgba(7, 135, 60, 0.04);
+  border-bottom: 1px solid rgba(7, 135, 60, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.8rem;
+  flex-shrink: 0;
+  min-height: 54px;
+}
+
+.card-header-icon {
+  color: var(--schaeffler-green);
+  flex-shrink: 0;
+  stroke-width: 2.5px;
+}
+
+.detail-card-header h2 {
+  font-size: 0.9rem;
+  font-weight: 800;
+  color: var(--schaeffler-green-dark) !important;
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-family: var(--font-heading);
+}
+
+.card-body {
+  padding: 1.5rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* Circular Highlight Items */
+.highlight-item {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+}
+
+.highlight-circle {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: 1.5px solid #eee;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: var(--schaeffler-green);
+  background: #fcfcfc;
+}
+
+.highlight-circle svg {
+  width: 22px;
+  height: 22px;
+  opacity: 0.8;
+}
+
+.highlight-text {
+  font-weight: 700;
+  font-size: 0.9rem;
+  color: #1a1a1a;
+  line-height: 1.3;
+}
+
+/* Advantages Bullets */
+.advantages-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.advantages-list li {
+  padding-left: 1.2rem;
+  position: relative;
+  font-size: 0.95rem;
+  color: #444;
+}
+
+.advantages-list li::before {
+  content: '•';
+  position: absolute;
+  left: 0;
+  color: var(--schaeffler-green);
+  font-weight: bold;
+}
+
+/* Features Table Refined */
+.features-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.features-table tr {
+  border-bottom: 1px solid #eee;
+}
+
+.features-table tr:last-child {
+  border-bottom: none;
+}
+
+.features-table td {
+  padding: 0.75rem 0.5rem;
+  font-size: 0.9rem;
+  vertical-align: top;
+}
+
+.features-table td:first-child {
+  color: #222;
+  font-weight: 500;
+  width: 40%;
+}
+
+.features-table td:last-child {
+  color: #555;
+  padding-left: 1rem;
+  border-left: 1px dotted #ccc;
 }
 
 /* ── Info Panel ────────────────────────────────────────── */
