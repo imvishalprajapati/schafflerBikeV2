@@ -7,7 +7,7 @@ import App from './App.jsx'
 import './index.css'
 
 // ── Global Draco decoder path ─────────────────────────────────
-// Points to local /public/draco/ files — works fully offline in Electron.
+// Points to local ./draco/ files — works fully offline in Electron.
 // This must be set before any useGLTF() call is made anywhere in the app.
 useGLTF.setDecoderPath('./draco/')
 

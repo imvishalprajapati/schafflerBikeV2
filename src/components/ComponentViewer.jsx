@@ -47,7 +47,6 @@ function buildExplodeData(scene) {
   bbox.getSize(sizeVec)
   const modelRadius = Math.max(sizeVec.x, sizeVec.y, sizeVec.z) * 0.5 || 1
 
-  // ── 1. Collect raw mesh data ──────────────────────────────────────────────
   const collected = []
   scene.traverse(child => {
     if (!child.isMesh) return
@@ -158,7 +157,7 @@ function buildExplodeData(scene) {
 // ── ComponentModel ────────────────────────────────────────────────────────────
 function ComponentModel({ modelPath, scrollProgress = 0, explodeTrigger = 'scroll' }) {
   // Clone the raw cached scene so shared state across renders is avoided.
-  const { scene: rawScene } = useGLTF(modelPath, '/draco/')
+  const { scene: rawScene } = useGLTF(modelPath, './draco/')
   const scene = useMemo(() => rawScene.clone(true), [rawScene])
 
   const meshDataRef = useRef([])
@@ -249,7 +248,7 @@ export default function ComponentViewer({
 }) {
   const [modelError, setModelError] = useState(false)
   const [dpr, setDpr] = useState(1.5)
-  const modelPath = `/models/${modelFile}`
+  const modelPath = `./models/${modelFile}`
   const isZoomTrigger = explodeTrigger === 'zoom'
 
   return (
@@ -300,8 +299,13 @@ export default function ComponentViewer({
           enableZoom={true}
           minDistance={isZoomTrigger ? MIN_DIST_ZOOM : 1.8}
           maxDistance={9}
-          autoRotate={!isZoomTrigger && scrollProgress < 0.05}
-          autoRotateSpeed={0.8}
+          autoRotate={false}
+          // Restrict vertical rotation to keep the component in a good viewing angle
+          minPolarAngle={Math.PI / 3}
+          maxPolarAngle={Math.PI / 1.6}
+          // Restrict horizontal rotation to prevent full 360 view (limit to ~120 degrees)
+          minAzimuthAngle={-Math.PI / 3}
+          maxAzimuthAngle={Math.PI / 3}
           makeDefault
         />
       </Suspense>

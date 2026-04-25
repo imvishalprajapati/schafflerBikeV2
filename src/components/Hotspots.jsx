@@ -14,24 +14,19 @@ const catColor = {
 
 function HotspotPin({ component }) {
   const navigate = useNavigate()
-  const { hoveredComponent, hoveredMeshId, selectedComponent, setHoveredComponent, dynamicAnchors } = useShowroomStore()
-  // Pin is active if selected via sidebar, 3D mesh hover, OR if it's the currently selected component
-  const isHovered = hoveredComponent === component.id || hoveredMeshId === component.id || selectedComponent === component.id
+  const { setHoveredComponent, dynamicAnchors } = useShowroomStore()
   const color = catColor[component.category] || '#00893D'
-  
-  // 1. Use dynamic anchor (calculated from meshes) if available
-  // 2. Otherwise, for safety, DO NOT fall back to bad hardcoded anchors 
-  //    if they would float in the air. We only show the pin if high-fidelity 
-  //    positioning is available.
-  const dynPos = dynamicAnchors[component.id];
-  if (!dynPos) return null; // Hide pin if not mapped to a mesh
 
-  const pinPosition = dynPos;
+  // Prefer dynamic anchor (computed from mesh bounds), fall back to hardcoded
+  const dynPos = dynamicAnchors[component.id]
+  const pinPosition = dynPos ?? component.anchor
+
+  if (!pinPosition) return null
 
   return (
     <Html position={pinPosition} center zIndexRange={[10, 20]}>
       <div
-        className={`hotspot-pin ${isHovered ? 'hovered' : ''}`}
+        className="hotspot-pin hovered"
         onMouseEnter={() => setHoveredComponent(component.id)}
         onMouseLeave={() => setHoveredComponent(null)}
         onPointerDown={(e) => {
@@ -53,20 +48,13 @@ function HotspotPin({ component }) {
 }
 
 export default function Hotspots() {
-  const { hoveredComponent, hoveredMeshId, selectedComponent } = useShowroomStore()
+  const { selectedComponent } = useShowroomStore()
 
-  // Show the hotspot pin for whichever component is active (sidebar or 3D hover or selected)
-  const activeId = hoveredComponent || hoveredMeshId || selectedComponent
+  // Only show a pin for the component the user clicked in the left sidebar
+  if (!selectedComponent) return null
 
-  const filtered = activeId
-    ? components.filter(comp => comp.id === activeId)
-    : []
+  const comp = components.find(c => c.id === selectedComponent)
+  if (!comp) return null
 
-  return (
-    <>
-      {filtered.map(comp => (
-        <HotspotPin key={comp.id} component={comp} />
-      ))}
-    </>
-  )
+  return <HotspotPin component={comp} />
 }

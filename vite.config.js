@@ -15,8 +15,6 @@ export default defineConfig(({ command }) => ({
   resolve: {
     dedupe: ['react', 'react-dom', 'three', 'gsap'],
     alias: {
-      'react': path.resolve(__dirname, 'node_modules/react'),
-      'react-dom': path.resolve(__dirname, 'node_modules/react-dom'),
       'three': path.resolve(__dirname, 'node_modules/three'),
       'gsap': path.resolve(__dirname, 'node_modules/gsap'),
       '@gsap/react': path.resolve(__dirname, 'node_modules/@gsap/react'),
@@ -27,7 +25,7 @@ export default defineConfig(({ command }) => ({
     assetsInlineLimit: 0,  // never inline models/textures
   },
   optimizeDeps: {
-    include: ['react-router-dom', '@react-three/fiber', '@react-three/drei'],
+    include: ['react', 'react-dom', 'react-router-dom', '@react-three/fiber', '@react-three/drei', 'zustand'],
     exclude: ['three', 'gsap'] // Force these to resolve via alias/dedupe only
   },
   server: {
