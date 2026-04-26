@@ -8,12 +8,12 @@ import components from '../data/components.js'
 
 // ── Featured Components for Home Grid ───────────────────────────────────
 const FEATURED_COMPONENTS = [
-  { id: 'ecu', label: 'Engine Control Units', image: '/parts/throttle_body.png', filter: (c) => c.category === 'Engine Control Units' },
-  { id: 'sensors', label: 'Sensors', image: '/parts/knock_sensor.png', filter: (c) => ['knock_sensor', 'pressure_sensor', 'flex_fuel_sensor'].includes(c.id) },
-  { id: 'injectors', label: 'Injectors', image: '/parts/fuel_injector.png', filter: (c) => c.id.startsWith('fuel_injector') },
-  { id: 'valvetrain', label: 'Valvetrain', image: '/parts/chain_tensioner.png', filter: (c) => ['hydraulic_chain_tensioner', 'cam_roller'].includes(c.id) },
-  { id: 'bearings', label: 'Bearings', image: '/parts/roller_bearing.png', filter: (c) => ['crankpin_kzk', 'cylindrical_roller', 'drawn_cup_starter'].includes(c.id) },
-  { id: 'clutch', label: 'Starter One Way Clutch', image: '/parts/one_way_clutch.png', filter: (c) => c.id === 'one_way_clutch' },
+  { id: 'ecu', label: 'Engine Control Units', image: './parts/throttle_body.png', filter: (c) => c.category === 'Engine Control Units' },
+  { id: 'sensors', label: 'Sensors', image: './parts/knock_sensor.png', filter: (c) => ['knock_sensor', 'pressure_sensor', 'flex_fuel_sensor'].includes(c.id) },
+  { id: 'injectors', label: 'Injectors', image: './parts/fuel_injector.png', filter: (c) => c.id.startsWith('fuel_injector') },
+  { id: 'valvetrain', label: 'Valvetrain', image: './parts/chain_tensioner.png', filter: (c) => ['hydraulic_chain_tensioner', 'cam_roller'].includes(c.id) },
+  { id: 'bearings', label: 'Bearings', image: './parts/roller_bearing.png', filter: (c) => ['crankpin_kzk', 'cylindrical_roller', 'drawn_cup_starter'].includes(c.id) },
+  { id: 'clutch', label: 'Starter One Way Clutch', image: './parts/one_way_clutch.png', filter: (c) => c.id === 'one_way_clutch' },
 ]
 
 function LoadingOverlay() {

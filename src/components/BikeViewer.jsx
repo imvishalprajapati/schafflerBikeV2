@@ -381,3 +381,5 @@ export default function BikeViewer({ groupRef }) {
     </>
   )
 }
+
+useGLTF.preload('./models/Grops_Bikes1_draco.glb')

@@ -13,8 +13,8 @@ useGLTF.setDecoderPath('./draco/')
 
 // ── Preload the main bike model as early as possible ──────────
 // Runs at module import time — before React mounts — so the browser
-// fetches Bike_optimized.glb in parallel with React bootstrapping.
-useGLTF.preload('./models/Bike_optimized.glb')
+// fetches Grops_Bikes1_draco.glb in parallel with React bootstrapping.
+useGLTF.preload('./models/Grops_Bikes1_draco.glb')
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <HashRouter>
