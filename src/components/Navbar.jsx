@@ -21,7 +21,13 @@ export default function Navbar() {
 
   return (
     <nav className="navbar">
-      <div className="navbar-left">
+      <div className="navbar-left" style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
+        <div className="navbar-controls">
+          <button className="window-btn close" onClick={close} title="Close">✕</button>
+          <button className="window-btn minimize" onClick={minimize} title="Minimize">─</button>
+          <button className="window-btn" onClick={maximize} title="Maximize">□</button>
+        </div>
+
         {location.pathname !== '/' && (
           <button className="navbar-back" onClick={() => navigate(-1)}>
             ← Back to Gallery
@@ -32,12 +38,6 @@ export default function Navbar() {
       <div className="navbar-right" style={{ display: 'flex', alignItems: 'center', gap: '2rem', marginLeft: 'auto' }}>
         <div className="navbar-logo" onClick={handleHomeClick} style={{ cursor: 'pointer', display: 'flex', alignItems: 'center' }}>
           <img src="./SchaefflerLogo.png" alt="Schaeffler" style={{ height: '20px', objectFit: 'contain' }} />
-        </div>
-
-        <div className="navbar-controls">
-          <button className="window-btn minimize" onClick={minimize} title="Minimize">─</button>
-          <button className="window-btn" onClick={maximize} title="Maximize">□</button>
-          <button className="window-btn close" onClick={close} title="Close">✕</button>
         </div>
       </div>
     </nav>

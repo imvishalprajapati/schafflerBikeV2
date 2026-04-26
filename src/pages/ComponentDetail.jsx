@@ -50,18 +50,42 @@ export default function ComponentDetail() {
           </div>
 
           <div className="header-apps-group">
-            <div className="app-indicator">
-              <Zap className="app-icon" size={24} />
-              <span>Plug-in Hybrid<br />Electric Vehicle</span>
-            </div>
-            <div className="app-indicator">
-              <Car className="app-icon" size={24} />
-              <span>Mild Hybrid<br />Electric Vehicle</span>
-            </div>
-            <div className="app-indicator">
-              <Fuel className="app-icon" size={24} />
-              <span>Gasoline</span>
-            </div>
+            {component.applications?.includes('PHEV') && (
+              <div className="app-indicator">
+                <Zap className="app-icon" size={24} />
+                <span>Plug-in Hybrid<br />Electric Vehicle</span>
+              </div>
+            )}
+            {component.applications?.includes('MHEV') && (
+              <div className="app-indicator">
+                <Car className="app-icon" size={24} />
+                <span>Mild Hybrid<br />Electric Vehicle</span>
+              </div>
+            )}
+            {component.applications?.includes('BEV') && (
+              <div className="app-indicator">
+                <Zap className="app-icon" size={24} style={{ color: '#00893D' }} />
+                <span>Battery Electric<br />Vehicle</span>
+              </div>
+            )}
+            {component.applications?.includes('EV') && !component.applications?.includes('BEV') && (
+              <div className="app-indicator">
+                <Zap className="app-icon" size={24} />
+                <span>Electric<br />Vehicle</span>
+              </div>
+            )}
+            {component.applications?.includes('Gasoline') && (
+              <div className="app-indicator">
+                <Fuel className="app-icon" size={24} />
+                <span>Gasoline</span>
+              </div>
+            )}
+            {component.applications?.includes('Gasoline/Diesel') && (
+              <div className="app-indicator">
+                <Fuel className="app-icon" size={24} />
+                <span>Gasoline /<br />Diesel</span>
+              </div>
+            )}
           </div>
         </div>
 
@@ -70,8 +94,6 @@ export default function ComponentDetail() {
           <ComponentViewer
             componentId={component.id}
             modelFile={component.model}
-            scrollProgress={0}
-            explodeTrigger={component.explodeTrigger}
           />
           {/* <div className="viewer-watermark">GENERATE MOTION</div> */}
         </div>
