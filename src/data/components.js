@@ -940,7 +940,7 @@ const components = [
     targetMeshes: ["BMS", "Battery Management"],
     category: "Electrification",
     model: null,
-    image: "./images/Battery Management System (BMS).png",
+    image: "./images/ev/bms.png",
     anchor: [0.0, 3.0, 4.5],
     tagline: "Electric 2/3-wheelers are revolutionizing urban transport and last-mile delivery. Schaeffler's 48V BMS is a smart, all-in-one controller that merges battery management features for small to medium sized electric 2/3 wheelers.",
     applications: ["BEV", "PHEV", "MHEV"],
