@@ -25,9 +25,9 @@ const EXPLODE_SCALE = 2.0
 const DEV_PICK_MODE = import.meta.env.DEV
 
 // ── BikeViewer ───────────────────────────────────────────────────────────
-export default function BikeViewer({ groupRef }) {
-  // const { scene } = useGLTF('./models/Grops_Bikes1.glb')
-  const { scene } = useGLTF('./models/Grops_Bikes1_draco.glb')
+export default function BikeViewer({ groupRef, bikeMode = 'ICE' }) {
+  const modelPath = bikeMode === 'EV' ? './models/Scooty_2_draco.glb' : './models/Grops_Bikes1_draco.glb'
+  const { scene } = useGLTF(modelPath)
 
   const { invalidate } = useThree()
   const navigate = useNavigate()
@@ -133,7 +133,9 @@ export default function BikeViewer({ groupRef }) {
     const calculatedAnchors = {}
     const unmappedIds = []
 
-    const filteredComponents = components.filter(c => c.category !== 'Electrification')
+    const filteredComponents = components.filter(c => 
+      bikeMode === 'EV' ? c.category === 'Electrification' : c.category !== 'Electrification'
+    )
 
     filteredComponents.forEach(comp => {
       let compBBox = new THREE.Box3();

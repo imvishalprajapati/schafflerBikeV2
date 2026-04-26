@@ -30,7 +30,7 @@ export default defineConfig(({ command }) => ({
   },
   server: {
     port: 5173,
-    strictPort: true, // Prevents port mismatch by failing if 5173 is taken
+    strictPort: false, // Allows Vite to pick another port if 5173 is taken
     host: true,       // Listen on all addresses
     cors: true,       // Enable CORS
     hmr: {

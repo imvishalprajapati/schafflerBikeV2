@@ -762,11 +762,12 @@ const components = [
 
   // ── ELECTRIFICATION (EV) ─────────────────────────────────────────────
   {
-    id: "e_motor",
+    id: "emotor_48v",
     label: "E-Motor 48 V",
+    targetMeshes: ["E-Motor", "Motor"],
     category: "Electrification",
-    model: "e_motor.glb",
-    anchor: [1.5, -1.5, 4.0],
+    model: "ev/E_Motor_draco.glb",
+    anchor: [0.0, -1.0, 4.0],
     tagline: "High-performance, cost optimized, efficient eMotor designed to meet the evolving needs of modern electric mobility.",
     applications: ["PHEV", "MHEV", "BEV"],
     highlights: [
@@ -800,8 +801,9 @@ const components = [
   {
     id: "edcu",
     label: "Control Unit – Electric Drive eDCU",
+    targetMeshes: ["eDCU", "Control Unit"],
     category: "Electrification",
-    model: "edcu.glb",
+    model: "ev/EDCU_draco.glb",
     anchor: [1.5, -0.5, 4.5],
     tagline: "A smart, all-in-one controller that merges motor and vehicle control functions into a single, scalable unit.",
     applications: ["PHEV", "MHEV", "BEV"],
@@ -835,8 +837,9 @@ const components = [
   {
     id: "irps",
     label: "Inductive Rotor Position Sensor (iRPS) - Through Shaft",
+    targetMeshes: ["iRPS", "Position Sensor"],
     category: "Electrification",
-    model: "irps.glb",
+    model: "ev/IRPS.glb",
     anchor: [0.5, -1.5, 4.0],
     tagline: "The iRPS is a compact inductive sensor dedicated to high-speed sensing. It provides accurate positioning to drive e-motors with the best efficiency.",
     applications: ["PHEV", "MHEV", "BEV"],
@@ -872,8 +875,9 @@ const components = [
   {
     id: "bms",
     label: "Battery Management System",
+    targetMeshes: ["BMS", "Battery Management"],
     category: "Electrification",
-    model: "bms.glb",
+    model: "ev/EV .glb",
     anchor: [0.0, 3.0, 4.5],
     tagline: "A smart, all-in-one controller that merges battery management features for small to medium sized electric 2/3 wheelers.",
     applications: ["PHEV", "MHEV", "BEV"],

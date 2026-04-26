@@ -34,9 +34,8 @@ export const useShowroomStore = create((set) => ({
   dynamicAnchors: {},
   setDynamicAnchors: (anchors) => set({ dynamicAnchors: anchors }),
 
-  // Explode animation progress 0 (assembled) → 1 (fully exploded)
-  // Written by ZoomWatcher every frame — read via getState() to avoid re-renders
-  explodeProgress: 0,
-  setExplodeProgress: (v) => set({ explodeProgress: v }),
+  // Bike view mode ('ICE' or 'EV')
+  bikeMode: 'ICE',
+  setBikeMode: (mode) => set({ bikeMode: mode }),
 }));
 
