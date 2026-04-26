@@ -8,19 +8,19 @@ import components from '../data/components.js'
 
 // ── Featured Components for Home Grid ───────────────────────────────────
 const FEATURED_COMPONENTS = [
-  { id: 'ecu', label: 'Engine Control Units', image: './parts/throttle_body.png', filter: (c) => c.category === 'Engine Control Units' },
-  { id: 'sensors', label: 'Sensors', image: './parts/knock_sensor.png', filter: (c) => ['knock_sensor', 'pressure_sensor', 'flex_fuel_sensor'].includes(c.id) },
-  { id: 'injectors', label: 'Injectors', image: './parts/fuel_injector.png', filter: (c) => c.id.startsWith('fuel_injector') },
-  { id: 'valvetrain', label: 'Valvetrain', image: './parts/chain_tensioner.png', filter: (c) => ['hydraulic_chain_tensioner', 'cam_roller'].includes(c.id) },
-  { id: 'bearings', label: 'Bearings', image: './parts/roller_bearing.png', filter: (c) => ['crankpin_kzk', 'cylindrical_roller', 'drawn_cup_starter'].includes(c.id) },
-  { id: 'clutch', label: 'Starter One Way Clutch', image: './parts/one_way_clutch.png', filter: (c) => c.id === 'one_way_clutch' },
+  { id: 'ecu', label: 'Engine Control Units', image: './images/throttle.png', filter: (c) => c.category === 'Engine Control Units' },
+  { id: 'sensors', label: 'Sensors', image: './images/sensors.png', filter: (c) => ['knock_sensor', 'pressure_sensor', 'flex_fuel_sensor'].includes(c.id) },
+  { id: 'injectors', label: 'Injectors', image: './images/injectors.png', filter: (c) => c.id.startsWith('fuel_injector') },
+  { id: 'valvetrain', label: 'Valvetrain', image: './images/check-velve-chain-tensioner.png', filter: (c) => ['hydraulic_chain_tensioner', 'cam_roller'].includes(c.id) },
+  { id: 'bearings', label: 'Bearings', image: './images/Bearings.png', filter: (c) => ['crankpin_kzk', 'cylindrical_roller', 'drawn_cup_starter'].includes(c.id) },
+  { id: 'clutch', label: 'Starter One Way Clutch', image: './images/starter-one-way-way-clutch.png', filter: (c) => c.id === 'one_way_clutch' },
 ]
 
 const FEATURED_EV_COMPONENTS = [
-  { id: 'emotor', label: 'Traction Motors', image: './parts/throttle_body.png', filter: (c) => c.id === 'emotor_48v' },
-  { id: 'edcu', label: 'Control Units', image: './parts/knock_sensor.png', filter: (c) => c.id === 'edcu' },
-  { id: 'irps', label: 'Position Sensors', image: './parts/knock_sensor.png', filter: (c) => c.id === 'irps' },
-  { id: 'bms', label: 'Battery Management', image: './parts/one_way_clutch.png', filter: (c) => c.id === 'bms' },
+  { id: 'emotor', label: 'Traction Motors', image: './images/throttle.png', filter: (c) => c.id === 'emotor_48v' },
+  { id: 'edcu', label: 'Control Units', image: './images/sensors.png', filter: (c) => c.id === 'edcu' },
+  { id: 'irps', label: 'Position Sensors', image: './images/sensors.png', filter: (c) => c.id === 'irps' },
+  { id: 'bms', label: 'Battery Management', image: './images/starter-one-way-way-clutch.png', filter: (c) => c.id === 'bms' },
 ]
 
 function LoadingOverlay() {
@@ -181,7 +181,7 @@ export default function Home() {
                 className="selection-card"
                 onClick={() => navigate(`/component/${item.id}`)}
               >
-                <img src={item.id.includes('bms') ? '/parts/one_way_clutch.png' : (item.id.includes('edcu') ? '/parts/knock_sensor.png' : (item.id.includes('emotor') ? '/parts/throttle_body.png' : (item.id.includes('irps') ? '/parts/knock_sensor.png' : activeSelection.image)))} alt={item.label} />
+                <img src={item.id.includes('bms') ? './images/starter-one-way-way-clutch.png' : (item.id.includes('edcu') ? './images/sensors.png' : (item.id.includes('emotor') ? './images/throttle.png' : (item.id.includes('irps') ? './images/sensors.png' : activeSelection.image)))} alt={item.label} />
                 <h3>{item.label}</h3>
                 <p>{item.tagline}</p>
               </div>
