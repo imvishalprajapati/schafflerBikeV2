@@ -877,7 +877,7 @@ const components = [
     label: "Battery Management System",
     targetMeshes: ["BMS", "Battery Management"],
     category: "Electrification",
-    model: "ev/EV .glb",
+    image: "./images/ev/bms.jpg",
     anchor: [0.0, 3.0, 4.5],
     tagline: "A smart, all-in-one controller that merges battery management features for small to medium sized electric 2/3 wheelers.",
     applications: ["PHEV", "MHEV", "BEV"],

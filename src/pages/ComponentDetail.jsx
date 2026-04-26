@@ -91,11 +91,22 @@ export default function ComponentDetail() {
 
         {/* Right Box: 3D Viewer */}
         <div className="detail-viewer-box">
-          <ComponentViewer
-            componentId={component.id}
-            modelFile={component.model}
-          />
-          {/* <div className="viewer-watermark">GENERATE MOTION</div> */}
+          {component.model ? (
+            <ComponentViewer
+              componentId={component.id}
+              modelFile={component.model}
+            />
+          ) : component.image ? (
+            <img
+              src={component.image}
+              alt={component.label}
+              style={{ width: '100%', height: 'auto', maxHeight: '500px', objectFit: 'contain', padding: '2rem' }}
+            />
+          ) : (
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%', color: 'var(--text-secondary)' }}>
+              No preview available
+            </div>
+          )}
         </div>
       </div>
 
