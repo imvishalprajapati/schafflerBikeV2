@@ -100,7 +100,14 @@ export default function ComponentDetail() {
             <img
               src={component.image}
               alt={component.label}
-              style={{ width: '100%', height: 'auto', maxHeight: '500px', objectFit: 'contain', padding: '2rem' }}
+              style={{
+                width: '100%',
+                height: '100%',
+                objectFit: 'contain',
+                padding: '2rem',
+                background: 'radial-gradient(circle, rgba(0,137,61,0.05) 0%, rgba(255,255,255,0) 70%)',
+                borderRadius: '24px'
+              }}
             />
           ) : (
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%', color: 'var(--text-secondary)' }}>

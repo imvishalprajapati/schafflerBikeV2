@@ -7,21 +7,47 @@ import BikeViewer from '../components/BikeViewer.jsx'
 import components from '../data/components.js'
 
 // ── Featured Components for Home Grid ───────────────────────────────────
+// ── Featured Components for Home Grid ───────────────────────────────────
 const FEATURED_ICE_COMPONENTS = [
-  { id: 'ecu', label: 'Engine Control Units', image: './images/throttle.png', filter: (c) => c.category === 'Engine Control Units' },
-  { id: 'sensors', label: 'Sensors', image: './images/sensors.png', filter: (c) => ['knock_sensor', 'pressure_sensor', 'flex_fuel_sensor'].includes(c.id) },
-  { id: 'injectors', label: 'Injectors', image: './images/injectors.png', filter: (c) => c.id.startsWith('fuel_injector') },
-  { id: 'valvetrain', label: 'Valvetrain', image: './images/check-velve-chain-tensioner.png', filter: (c) => ['hydraulic_chain_tensioner', 'cam_roller'].includes(c.id) },
-  { id: 'bearings', label: 'Bearings', image: './images/Bearings.png', filter: (c) => ['crankpin_kzk', 'cylindrical_roller', 'drawn_cup_starter'].includes(c.id) },
-  { id: 'clutch', label: 'Starter One Way Clutch', image: './images/starter-one-way-way-clutch.png', filter: (c) => c.id === 'one_way_clutch' },
+  { 
+    id: 'engine', 
+    label: 'Engine', 
+    image: './images/injectors.png', 
+    filter: (c) => c.category === 'Engine',
+    description: 'Thanks to a consistent system approach, Schaeffler offers a large variety of sensors, actuators and bearings that play a significant role in terms of energy efficiency. From Port Fuel Injectors, to knock sensors, bearings, our latest technologies guarantee a better efficiency for the 2-wheeler applications.'
+  },
+  { 
+    id: 'transmission', 
+    label: 'Transmission', 
+    image: './images/needle roller assembly.png', 
+    filter: (c) => c.category === 'Transmission',
+    description: 'A robust and compact drivetrain is crucial in order to get the power of the engine to the wheel. This also requires reliable main shaft bearings in the transmission like ball bearings with centrifugal disc or roller bearings with special raceway profiles.'
+  },
+  { 
+    id: 'chassis', 
+    label: 'Chassis', 
+    image: './images/Wheel bearing with encoder sealing.png', 
+    filter: (c) => c.category === 'Chassis',
+    description: 'Chassis bearings directly impact the riding feeling and vehicle behavior. This comprises the steering head bearing for a smooth steering feeling as well as radial spherical bearings in the steering damper for a stable dynamic behavior.'
+  },
+  { 
+    id: 'ecu', 
+    label: 'Engine Control Units', 
+    image: './images/M4C Engine Control Unit.png', 
+    filter: (c) => c.category === 'Engine Control Units',
+    description: "Schaeffler has a strong and demonstrated expertise in the development of Electronic Control Units – addressing every kind of 2-wheeler & Powersports application. We ensure more efficiency, safety and drivability while keeping the riding pleasure."
+  },
 ]
 
 const FEATURED_EV_COMPONENTS = [
-  { id: 'emotor', label: 'Traction Motors', image: './images/ev/48v.png', filter: (c) => c.id === 'emotor_48v' },
-  { id: 'edcu', label: 'Control Units', image: './images/ev/edcu.png', filter: (c) => c.id === 'edcu' },
-  { id: 'irps', label: 'Position Sensors', image: './images/ev/irps.png', filter: (c) => c.id === 'irps' },
-  { id: 'bms', label: 'Battery Management', image: './images/ev/bms.png', filter: (c) => c.id === 'bms' },
+  { id: 'emotor', label: 'Traction Motors', image: './images/E-Motor 48 V.png', filter: (c) => c.id === 'emotor_48v', description: 'High-performance, cost optimized e-Motor platform scalable in power and torque to match diverse vehicle needs.' },
+  { id: 'edcu', label: 'Control Units', image: './images/Control Unit – Electric Drive eDCU.png', filter: (c) => c.id === 'edcu', description: 'Smart, all-in-one controller merging motor and vehicle control functions into a single, scalable unit.' },
+  { id: 'irps', label: 'Position Sensors', image: './images/Inductive Rotor Position Sensor (iRPS).png', filter: (c) => c.id === 'irps', description: 'Compact inductive sensor for high-speed sensing, providing accurate positioning for maximum e-motor efficiency.' },
+  { id: 'bms', label: 'Battery Management', image: './images/Battery Management System.png', filter: (c) => c.id === 'bms', description: 'Highly integrated BMS solution offering balancing, monitoring, switching and current measurement on a single PCB.' },
 ]
+
+
+
 
 function LoadingOverlay() {
   const { progress, active } = useProgress()
@@ -138,8 +164,8 @@ export default function Home() {
             <OrbitControls
               enablePan={false}
               enableZoom={true}
-              minDistance={3}
-              maxDistance={10}
+              minDistance={6.5}
+              maxDistance={8.5}
               autoRotate={true}
               autoRotateSpeed={0.5}
               makeDefault
@@ -170,7 +196,10 @@ export default function Home() {
       {activeSelection && (
         <div className="selection-overlay" onClick={() => setActiveSelection(null)}>
           <div className="overlay-header" onClick={e => e.stopPropagation()}>
-            <h2 className="overlay-title">Select {activeSelection.label}</h2>
+            <div className="overlay-title-group">
+              <h2 className="overlay-title">Select {activeSelection.label}</h2>
+              <p className="overlay-description">{activeSelection.description}</p>
+            </div>
             <button className="close-overlay" onClick={() => setActiveSelection(null)}>✕</button>
           </div>
 
@@ -181,7 +210,7 @@ export default function Home() {
                 className="selection-card"
                 onClick={() => navigate(`/component/${item.id}`)}
               >
-                <img src={item.id.includes('bms') ? './images/ev/bms.png' : (item.id.includes('edcu') ? './images/ev/edcu.png' : (item.id.includes('emotor') ? './images/ev/48v.png' : (item.id.includes('irps') ? './images/ev/irps.png' : activeSelection.image)))} alt={item.label} />
+                <img src={item.image} alt={item.label} />
                 <h3>{item.label}</h3>
                 <p>{item.tagline}</p>
               </div>

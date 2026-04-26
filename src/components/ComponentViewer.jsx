@@ -31,6 +31,8 @@ export default function ComponentViewer({
   modelFile,
   color = '#00893D'
 }) {
+  if (!modelFile) return null;
+
   const [modelError, setModelError] = useState(false)
   const [dpr, setDpr] = useState(1.5)
   const modelPath = `./models/${modelFile}`
@@ -72,7 +74,7 @@ export default function ComponentViewer({
 
         <OrbitControls
           enablePan={false}
-          enableZoom={true}
+          enableZoom={false}
           minDistance={2.2}
           maxDistance={9}
           autoRotate={false}

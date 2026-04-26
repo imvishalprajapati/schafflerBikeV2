@@ -430,7 +430,9 @@ h6 {
   display: flex;
   align-items: center;
   justify-content: center;
+  z-index: 10;
 }
+
 
 /* ── Component Cards Row ──────────────────────────────── */
 .home-cards-container {
@@ -896,7 +898,8 @@ h6 {
   display: grid;
   grid-template-columns: 1fr 1.2fr;
   gap: 1.5rem;
-  min-height: 480px;
+  min-height: 400px;
+  max-height: 400px;
   flex-shrink: 0;
 }
 
@@ -904,51 +907,52 @@ h6 {
 .detail-header-card {
   background: #d4dfda; /* Light teal color from image */
   border-radius: var(--radius-sm);
-  padding: 3rem 2.5rem;
+  padding: 2.5rem 2.5rem;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   position: relative;
+  overflow: hidden;
 }
 
 .header-text-group h1 {
-  font-size: 2.4rem;
+  font-size: 2.2rem;
   font-weight: 700;
   color: #1a1a1a;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
   letter-spacing: -0.02em;
 }
 
 .header-text-group p {
-  font-size: 1rem;
-  line-height: 1.6;
+  font-size: 0.95rem;
+  line-height: 1.5;
   color: #444;
-  max-width: 90%;
+  max-width: 95%;
 }
 
 .header-apps-group {
   display: flex;
-  flex-direction: column;
-  align-items: flex-end;
+  flex-direction: row;
+  align-items: center;
   gap: 1.5rem;
-  margin-top: 2rem;
+  margin-top: 1.5rem;
 }
 
 .app-indicator {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.4rem;
+  gap: 0.3rem;
   color: #555;
-  font-size: 0.65rem;
+  font-size: 0.6rem;
   font-weight: 600;
   text-align: center;
-  width: 80px;
+  width: 70px;
 }
 
 .app-icon {
-  width: 24px;
-  height: 24px;
+  width: 22px;
+  height: 22px;
   stroke-width: 2.5px;
   color: var(--schaeffler-green);
 }
@@ -964,7 +968,9 @@ h6 {
   position: relative;
   overflow: hidden;
   border: 1px solid rgba(0,0,0,0.05);
+  max-height: 400px;
 }
+
 
 .viewer-watermark {
   position: absolute;
@@ -1674,7 +1680,16 @@ h6 {
 .overlay-title {
   font-size: 36px;
   color: #121212;
+  margin-bottom: 8px;
 }
+
+.overlay-description {
+  font-size: 16px;
+  color: #666;
+  max-width: 800px;
+  line-height: 1.5;
+}
+
 
 .close-overlay {
   background: none;
