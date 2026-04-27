@@ -1,4 +1,4 @@
-const { app, BrowserWindow, shell } = require('electron');
+const { app, BrowserWindow, shell, ipcMain } = require('electron');
 const path = require('path');
 const isDev = !app.isPackaged;
 
@@ -35,6 +35,25 @@ function createWindow() {
 }
 
 app.whenReady().then(() => {
+  ipcMain.on('window-minimize', () => {
+    BrowserWindow.getFocusedWindow()?.minimize();
+  });
+  
+  ipcMain.on('window-maximize', () => {
+    const focusedWindow = BrowserWindow.getFocusedWindow();
+    if (focusedWindow) {
+      if (focusedWindow.isMaximized()) {
+        focusedWindow.unmaximize();
+      } else {
+        focusedWindow.maximize();
+      }
+    }
+  });
+
+  ipcMain.on('window-close', () => {
+    BrowserWindow.getFocusedWindow()?.close();
+  });
+
   createWindow();
   app.on('activate', () => {
     if (BrowserWindow.getAllWindows().length === 0) createWindow();

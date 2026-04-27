@@ -194,7 +194,14 @@ export default function Home() {
 
       {/* ── Selection Overlay ── */}
       {activeSelection && (
-        <div className="selection-overlay" onClick={() => setActiveSelection(null)}>
+        <div 
+          className="selection-overlay" 
+          onClick={(e) => {
+            if (e.target === e.currentTarget && e.clientX < e.target.clientWidth) {
+              setActiveSelection(null)
+            }
+          }}
+        >
           <div className="overlay-header" onClick={e => e.stopPropagation()}>
             <div className="overlay-title-group">
               <h2 className="overlay-title">Select {activeSelection.label}</h2>
